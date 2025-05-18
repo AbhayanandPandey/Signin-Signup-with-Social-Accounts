@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import React from 'react'
-import Login from './components/login'
-import Register from './components/signup'
+import Login from './Pages/login'
+import Register from './Pages/signup'
+import Dashboard from './Pages/dashboard'
+import Forgot from './Pages/forgotPassword'
 import { Route, Routes } from 'react-router-dom'
 
 function App() {
@@ -12,6 +14,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot" element={<Forgot />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </>
   )
