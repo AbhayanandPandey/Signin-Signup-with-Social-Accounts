@@ -12,7 +12,6 @@ const Login = () => {
     e.preventDefault();
     console.log("Email:", email);
     console.log("Password:", password);
-    // Add login logic here
   };
 
   return (
@@ -24,7 +23,6 @@ const Login = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <div className="relative">
@@ -42,7 +40,6 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
             <div className="relative">
@@ -68,7 +65,6 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md transition duration-200 cursor-pointer"
@@ -77,7 +73,6 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Register Link */}
         <p className="text-sm text-center text-gray-600">
           Don't have an account?{" "}
           <Link to="/register" className="text-blue-600 font-medium hover:underline">
@@ -85,14 +80,12 @@ const Login = () => {
           </Link>
         </p>
 
-        {/* Divider */}
         <div className="flex items-center justify-between">
           <hr className="w-full border-gray-300" />
           <span className="text-sm text-gray-500 px-2">or</span>
           <hr className="w-full border-gray-300" />
         </div>
 
-        {/* Social Login */}
         <div className="flex flex-col space-y-3">
           <button className="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer">
             <FaGoogle className="text-red-500" /> Sign in with Google
