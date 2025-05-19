@@ -98,7 +98,9 @@ const logout = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        const { name, email, profilePic } = req.user;
+        const { name, email } = req.user;
+        const user = await User.findOne({ email });
+        const profilePic = user.profilePic
         res.json({ name, email, profilePic });
     } catch (err) {
         res.status(500).json({ message: 'Failed to get user', error: err.message });
