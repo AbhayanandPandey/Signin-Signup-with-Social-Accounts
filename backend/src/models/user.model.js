@@ -22,16 +22,6 @@ const userSchema = new mongoose.Schema({
         default: "https://tse4.mm.bing.net/th?id=OIP.hGSCbXlcOjL_9mmzerqAbQHaHa&pid=Api&P=0&h=180"
     },
 }, { timestamps: true })
-
-userSchema.pre("save", async function(next){
-    if(this.isModified("password"))
-        {
-            console.log(this.password)
-            this.password =await bcrypt.hash(this.password,10)
-            console.log(this.password)
-        }
-        next()
-    })
     
 const User = mongoose.model('User', userSchema)
 module.exports = User

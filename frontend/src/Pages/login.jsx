@@ -1,17 +1,35 @@
 import React, { useState } from "react";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { FaGoogle, FaFacebookF, FaGithub } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // added useNavigate
+import axios from "axios";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate(); // for redirecting
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    try {
+      const res = await axios.post("http://localhost:5001/api/auth/login", 
+        { email, password },
+        { withCredentials: true }
+      );
+
+      if (res.status === 200) {
+        alert("Login successful!");
+
+        navigate("/dashboard");
+      } else {
+        alert(res.data.message || "Login failed");
+      }
+    } catch (error) {
+      console.error("Login error:", error.response?.data || error.message);
+      alert(error.response?.data?.message || "Login failed. Please try again.");
+    }
   };
 
   return (

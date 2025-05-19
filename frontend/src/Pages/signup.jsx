@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User } from "lucide-react";
 import { FaGoogle, FaFacebookF, FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,15 +13,35 @@ const Register = () => {
   });
 
   const handleChange = (e) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Registering:", formData);
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5001/api/auth/register",
+        formData,
+        {
+          withCredentials: true,
+        }
+      );
+
+      console.log("Registered user:", res.data);
+      alert("Registration successful! Redirecting to dashboard...");
+      window.location.href = "http://localhost:5173/dashboard";
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        alert(err.response.data.message);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+      console.error("Registration error:", err);
+    }
   };
 
   return (
@@ -33,20 +54,29 @@ const Register = () => {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="John Doe"
-              required
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            />
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Full Name
+            </label>
+            <div className="relative">
+              <span className="absolute left-3 top-2.5 text-gray-400">
+                <User size={18} />
+              </span>
+              <input
+                type="text"
+                name="name"
+                placeholder="John Doe"
+                required
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              />
+            </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
             <div className="relative">
               <span className="absolute left-3 top-2.5 text-gray-400">
                 <Mail size={18} />
@@ -64,7 +94,9 @@ const Register = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
             <div className="relative">
               <span className="absolute left-3 top-2.5 text-gray-400">
                 <Lock size={18} />
@@ -83,11 +115,14 @@ const Register = () => {
                 className="absolute right-3 top-2.5 text-gray-400"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <EyeOff size={18}  className="cursor-pointer" /> : <Eye size={18} className="cursor-pointer" />}
+                {showPassword ? (
+                  <EyeOff size={18} className="cursor-pointer" />
+                ) : (
+                  <Eye size={18} className="cursor-pointer" />
+                )}
               </button>
             </div>
           </div>
-
 
           <button
             type="submit"

@@ -1,25 +1,24 @@
-const express = require('express')
-const cors = require('cors')
-const mongoose = require('mongoose')
-const dotenv = require('dotenv')
-dotenv.config()
-const app = express()
-require('./config/db')
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config();
 
-const AuthData = require('./routes/Auth.routes')
+const app = express();
+require('./config/db');
 
-app.use(cors(
-{
-    origin: process.env.CLIENT_URL,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+app.use(cors({
+    origin: 'http://localhost:5173',
     credentials: true,
-    sameSite: false,
-}))
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+}));
+app.use(express.json());
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
-app.use('/api/auth', AuthData)
+const AuthData = require('./routes/Auth.routes');
+
+app.use('/api/auth', AuthData);
 
 app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`)
-})
+  console.log(`Server is running on port ${process.env.PORT}`);
+});

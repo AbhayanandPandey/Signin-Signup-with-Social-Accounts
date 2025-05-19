@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const dotenv = require('dotenv');
+dotenv.config();
+
 
 const isAuthenticated = (req, res, next) => {
   const token = req.cookies.TokenData;
@@ -7,7 +9,6 @@ const isAuthenticated = (req, res, next) => {
   if (!token) {
     return res.status(401).json({ message: 'Authentication token missing' });
   }
-
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
@@ -17,4 +18,6 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
-module.exports = isAuthenticated;
+module.exports = {
+    isAuthenticated
+}

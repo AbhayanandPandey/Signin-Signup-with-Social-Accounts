@@ -5,14 +5,20 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
 
- const register = async (req, res) => {
+const register = async (req, res) => {
     const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+        return res.status(400).json({ message: "All fields are required." });
+    }
 
     try {
+        const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });
         }
+        console.log(password);
         const hashedPassword = await bcrypt.hash(password, 10);
+        console.log("Hashed password:", hashedPassword);
         const newUser = new User({ name, email, password: hashedPassword });
         await newUser.save();
 
@@ -20,42 +26,50 @@ dotenv.config();
             id: newUser._id,
             name: newUser.name,
             email: newUser.email,
+            profilePic: 'https://tse4.mm.bing.net/th?id=OIP.hGSCbXlcOjL_9mmzerqAbQHaHa&pid=Api&P=0&h=180',
+
         };
 
-        const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '1d' });
+        const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.cookie('TokenData', token, {
-            httpOnly: true,
+            httpOnly: false,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'Lax',
-            maxAge: 60 * 60 * 1000 * 24
+            maxAge: 60 * 60 * 1000 * 24,
         });
 
-        res.redirect(`${process.env.CLIENT_URL}/dashboard`);
+        res.status(201).json({ message: 'Registration successful', user: tokenPayload });
 
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-}
- const login = async (req, res) => {
+};
+
+const login = async (req, res) => {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ message: 'All fields are required' });
+    }
 
     try {
         const existingUser = await User.findOne({ email });
         if (!existingUser) {
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(400).json({ message: 'Invalid user' });
         }
-
+        const userpas = await bcrypt.hash(password, 10);
         const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+
         if (!isPasswordValid) {
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(400).json({ message: 'Invalid password' });
         }
 
         const tokenPayload = {
             id: existingUser._id,
             name: existingUser.name,
             email: existingUser.email,
-            profilePic: existingUser.ProfilePic,
+            profilePic: 'https://tse4.mm.bing.net/th?id=OIP.hGSCbXlcOjL_9mmzerqAbQHaHa&pid=Api&P=0&h=180',
         };
 
         const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -64,16 +78,18 @@ dotenv.config();
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'Lax',
-            maxAge: 60 * 60 * 1000 * 24
+            maxAge: 60 * 60 * 1000 * 24,
         });
 
-        res.redirect(`${process.env.CLIENT_URL}/dashboard`);
+        res.status(200).json({ message: 'Login successful', user: tokenPayload });
 
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-}
- const logout = async (req, res) => {
+};
+
+
+const logout = async (req, res) => {
     try {
         res.clearCookie('TokenData');
         res.status(200).json({ message: 'Logged out successfully' });
@@ -82,21 +98,14 @@ dotenv.config();
     }
 }
 
- const getUser = async (req, res) => {
-    const token = req.cookies.TokenData;
-
-  if (!token) {
-    return res.status(401).json({ message: 'No token found' });
-  }
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const { name, email, profilePic } = decoded;
-    res.json({ name, email, profilePic });
-  } catch (err) {
-    res.status(403).json({ message: 'Invalid token' });
-  }
-}
+const getUser = async (req, res) => {
+    try {
+        const { name, email, profilePic } = req.user;
+        res.json({ name, email, profilePic });
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to get user', error: err.message });
+    }
+};
 
 module.exports = {
     register,
