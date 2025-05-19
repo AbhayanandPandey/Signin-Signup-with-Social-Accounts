@@ -5,9 +5,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 require('./config/passport');
+
 const passport = require('passport');
-const faceAuth = require('./routes/facebook.routes');
+const faceAuth = require('./routes/socialAuth.routes');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 app.use(express.json());
@@ -22,14 +24,12 @@ app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true,
 }));
-const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 const AuthData = require('./routes/Auth.routes');
-
 app.use('/api/auth', AuthData);
 
-// facebook authentication
+// Social authentication
 
 app.use(passport.initialize());
 app.use(passport.session());

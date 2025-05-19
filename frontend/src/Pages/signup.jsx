@@ -48,6 +48,14 @@ const Register = () => {
   const FacebookLogin = async () => {
     window.location.href = "http://localhost:5001/auth/facebook";
   }
+  //Github login
+  const GithubLogin = async () => {
+    window.location.href = "http://localhost:5001/auth/github";
+  }
+  //Google login
+  const GoogleLogin = async () => {
+    window.location.href = "http://localhost:5001/auth/google";
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -151,7 +159,7 @@ const Register = () => {
         </div>
 
         <div className="flex flex-col space-y-3">
-          <button className="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer">
+          <button className="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer" onClick={GoogleLogin}>
             <FaGoogle className="text-red-500" /> Sign up with Google
           </button>
           <button
@@ -161,7 +169,7 @@ const Register = () => {
             <FaFacebookF className="text-blue-600" /> Sign up with Facebook
           </button>
           
-          <button className="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer">
+          <button className="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer" onClick={GithubLogin}>
             <FaGithub className="text-black" /> Sign up with GitHub
           </button>
         </div>

@@ -57,7 +57,6 @@ const login = async (req, res) => {
         if (!existingUser) {
             return res.status(400).json({ message: 'Invalid user' });
         }
-        const userpas = await bcrypt.hash(password, 10);
         const isPasswordValid = await bcrypt.compare(password, existingUser.password);
 
         if (!isPasswordValid) {
@@ -74,7 +73,7 @@ const login = async (req, res) => {
         const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.cookie('TokenData', token, {
-            httpOnly: true,
+            httpOnly: false,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'Lax',
             maxAge: 60 * 60 * 1000 * 24,
