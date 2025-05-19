@@ -31,7 +31,10 @@ const Login = () => {
       alert(error.response?.data?.message || "Login failed. Please try again.");
     }
   };
-
+ // facebook login
+  const FacebookLogin = async () => {
+    window.location.href = "http://localhost:5001/auth/facebook";
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white shadow-lg rounded-xl w-full max-w-md p-8 space-y-6">
@@ -114,7 +117,8 @@ const Login = () => {
           <button className="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer">
             <FaGoogle className="text-red-500" /> Sign in with Google
           </button>
-          <button className="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer">
+          <button className="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer"
+            onClick={FacebookLogin}>
             <FaFacebookF className="text-blue-600" /> Sign in with Facebook
           </button>
           <button className="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer">

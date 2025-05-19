@@ -15,11 +15,28 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
+        required: false,
     },
     profilePic: {
         type: String,
         default: "https://tse4.mm.bing.net/th?id=OIP.hGSCbXlcOjL_9mmzerqAbQHaHa&pid=Api&P=0&h=180"
+    },
+    facebookId: { 
+        type: String, 
+        unique: true,
+        sparse:true,
+
+    },
+    googleId: { 
+        type: String, 
+        unique: true,
+        sparse:true,
+    },
+    githubId: { 
+        type: String, 
+        unique: true,
+        sparse:true,
+
     },
 }, { timestamps: true })
     

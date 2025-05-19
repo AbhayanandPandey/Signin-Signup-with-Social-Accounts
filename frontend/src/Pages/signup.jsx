@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Eye, EyeOff, Mail, Lock, User } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Facebook } from "lucide-react";
 import { FaGoogle, FaFacebookF, FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -43,6 +43,11 @@ const Register = () => {
       console.error("Registration error:", err);
     }
   };
+
+  // facebook login
+  const FacebookLogin = async () => {
+    window.location.href = "http://localhost:5001/auth/facebook";
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -149,9 +154,13 @@ const Register = () => {
           <button className="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer">
             <FaGoogle className="text-red-500" /> Sign up with Google
           </button>
-          <button className="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer">
+          <button
+            onClick={FacebookLogin}
+            className="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer"
+          >
             <FaFacebookF className="text-blue-600" /> Sign up with Facebook
           </button>
+          
           <button className="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer">
             <FaGithub className="text-black" /> Sign up with GitHub
           </button>

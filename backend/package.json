@@ -18,6 +18,8 @@
     "express": "^5.1.0",
     "express-session": "^1.18.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.15.0"
+    "mongoose": "^8.15.0",
+    "passport": "^0.7.0",
+    "passport-facebook": "^3.0.0"
   }
 }
