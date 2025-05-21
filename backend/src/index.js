@@ -21,7 +21,7 @@ app.use(session({
 }));
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://signin-signup-with-social-accounts-1.onrender.com',
     credentials: true,
 }));
 app.use(cookieParser());
