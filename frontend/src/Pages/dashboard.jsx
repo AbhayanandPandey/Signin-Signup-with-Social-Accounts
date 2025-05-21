@@ -8,7 +8,9 @@ const Dashboard = () => {
     useEffect(() => {
          const fetchUser = async () => {
             try {
-                const res = await axios.get("http://localhost:5001/api/auth/user", {
+                //"http://localhost:5001/api/auth/user"
+                
+                const res = await axios.get("https://signin-signup-with-social-accounts.onrender.com/api/auth/user", {
                     withCredentials: true,
                 });
                 setUser(res.data);
@@ -26,7 +28,7 @@ const Dashboard = () => {
 
     const onLogout = async () => {
         try {
-            await axios.get("http://localhost:5001/api/auth/logout", { withCredentials: true });
+            await axios.get("https://signin-signup-with-social-accounts.onrender.com/api/auth/logout", { withCredentials: true });
             window.location.replace("/login");
         } catch (err) {
             console.error("Logout failed:", err);
