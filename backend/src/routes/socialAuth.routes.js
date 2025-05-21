@@ -35,7 +35,7 @@ router.get('/facebook/callback',
             maxAge: 24 * 60 * 60 * 1000,
         });
 
-        res.redirect('http://localhost:5173/dashboard');
+        res.redirect('https://signin-signup-with-social-accounts-1.onrender.com/dashboard');
     }
 );
 
@@ -110,7 +110,7 @@ router.get('/github/callback', async (req, res) => {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     });
 
-    res.redirect(`http://localhost:5173/dashboard`);
+    res.redirect(`https://signin-signup-with-social-accounts-1.onrender.com/dashboard`);
   } catch (error) {
     console.error("GitHub auth error:", error.message);
     res.status(500).send('Authentication failed.');
@@ -150,7 +150,7 @@ router.get('/google/callback',
             maxAge: 86400000 // 1 day
         });
 
-         res.redirect(`http://localhost:5173/dashboard`);
+         res.redirect(`https://signin-signup-with-social-accounts-1.onrender.com/dashboard`);
     }
 );
 
