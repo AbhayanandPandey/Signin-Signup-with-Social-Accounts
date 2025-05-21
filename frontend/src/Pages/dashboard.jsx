@@ -8,7 +8,6 @@ const Dashboard = () => {
     useEffect(() => {
          const fetchUser = async () => {
             try {
-                //"http://localhost:5001/api/auth/user"
                 
                 const res = await axios.get("https://signin-signup-with-social-accounts.onrender.com/api/auth/user", {
                     withCredentials: true,
