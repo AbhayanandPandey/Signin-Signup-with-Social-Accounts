@@ -24,7 +24,7 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        "https://signin-signup-with-social-accounts.onrender.com/api/auth/register",
+        "http://localhost:5001/api/auth/register",
         formData,
         {
           withCredentials: true,
@@ -33,7 +33,7 @@ const Register = () => {
 
       console.log("Registered user:", res.data);
       alert("Registration successful! Redirecting to dashboard...");
-      window.location.href = "/dashboard";
+      window.location.href = "http://localhost:5173/dashboard";
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         alert(err.response.data.message);
@@ -46,15 +46,15 @@ const Register = () => {
 
   // facebook login
   const FacebookLogin = async () => {
-    window.location.href = "https://signin-signup-with-social-accounts.onrender.com/auth/facebook";
+    window.location.href = "http://localhost:5001/auth/facebook";
   }
   //Github login
   const GithubLogin = async () => {
-    window.location.href = "https://signin-signup-with-social-accounts.onrender.com/auth/github";
+    window.location.href = "http://localhost:5001/auth/github";
   }
   //Google login
   const GoogleLogin = async () => {
-    window.location.href = "https://signin-signup-with-social-accounts.onrender.com/auth/google";
+    window.location.href = "http://localhost:5001/auth/google";
   }
 
   return (

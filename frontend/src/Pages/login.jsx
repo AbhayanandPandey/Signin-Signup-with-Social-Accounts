@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("https://signin-signup-with-social-accounts.onrender.com/api/auth/login", 
+      const res = await axios.post("z/api/auth/login", 
         { email, password },
         { withCredentials: true }
       );
@@ -33,17 +33,17 @@ const Login = () => {
   };
  // facebook login
   const FacebookLogin = async () => {
-    window.location.href = "https://signin-signup-with-social-accounts.onrender.com/auth/facebook";
+    window.location.href = "http://localhost:5001/auth/facebook";
   }
 
   //Github login
   const GithubLogin = async () => {
-    window.location.href = "https://signin-signup-with-social-accounts.onrender.com/auth/github";
+    window.location.href = "http://localhost:5001/auth/github";
   }
 
   //Google login
   const GoogleLogin = async () => {
-    window.location.href = "https://signin-signup-with-social-accounts.onrender.com/auth/google";
+    window.location.href = "http://localhost:5001/auth/google";
   }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
