@@ -7,7 +7,7 @@ const Dashboard = () => {
 
     useEffect(() => {
          const fetchUser = async () => {
-            try {zz
+            try {
                 const res = await axios.get("http://localhost:5001/api/auth/user", {
                     withCredentials: true,
                 });
