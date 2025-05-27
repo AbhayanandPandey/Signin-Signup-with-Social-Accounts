@@ -43,7 +43,6 @@ const Register = () => {
       console.error("Registration error:", err);
     }
   };
-
   // facebook login
   const FacebookLogin = async () => {
     window.location.href = "http://localhost:5001/auth/facebook";
