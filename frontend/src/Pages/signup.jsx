@@ -55,7 +55,6 @@ const Register = () => {
   const GoogleLogin = async () => {
     window.location.href = "http://localhost:5001/auth/google";
   }
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white shadow-lg rounded-xl w-full max-w-md p-8 space-y-6">
