@@ -15,9 +15,7 @@ const ForgotPassword = () => {
 
   const handleSave = () => {
     if (newPassword) {
-      // Call API here
       alert(`Password for ${email} updated successfully!`);
-      // Reset form
       setStep(1);
       setEmail("");
       setNewPassword("");

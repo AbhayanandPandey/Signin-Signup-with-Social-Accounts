@@ -35,12 +35,10 @@ const Login = () => {
   const FacebookLogin = async () => {
     window.location.href = "http://localhost:5001/auth/facebook";
   }
-
   //Github login
   const GithubLogin = async () => {
     window.location.href = "http://localhost:5001/auth/github";
   }
-
   //Google login
   const GoogleLogin = async () => {
     window.location.href = "http://localhost:5001/auth/google";

@@ -20,7 +20,6 @@ const Dashboard = () => {
                 setLoading(false);
             }
         };
-
         fetchUser();
     }, []);
 
